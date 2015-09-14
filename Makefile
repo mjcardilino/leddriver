@@ -4,7 +4,7 @@
 SILENCE = @
 
 #---- Outputs ----#
-COMPONENT_NAME = BookCode_CppUTest
+COMPONENT_NAME = LedDriver_CppUTest
 
 #--- Inputs ----#
 CPP_PLATFORM = Gcc

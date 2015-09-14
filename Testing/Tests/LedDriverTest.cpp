@@ -1,24 +1,15 @@
 #include "CppUTest/TestHarness.h"
 
-extern "C"
+TEST_GROUP(LedDriver) 
 {
-#include "LedDriver.h"
-#include "RuntimeErrorStub.h"
-}
+    void setup() 
+    {
+        LedDriver_Create();
+    }
+    
+};
 
-TEST_GROUP(LedDriver);
-
-TEST_SETUP(LedDriver) 
+TEST(LedDriver, Create)
 {
-   
-}
-
-TEST_TEAR_DOWN(LedDriver)
-{
-   
-}
-
-TEST(LedDriver, LedsOffAfterCreate)
-{
-   TEST_FAIL_MESSAGE("Start here");
+    FAIL("Start here");
 }
