@@ -1,3 +1,10 @@
+/*!
+ * @file
+ * @brief TDD test runner.
+ *
+ * Copyright (c) 2013 - General Electric - All rights reserved.
+ */
+
 #include "CppUTest/CommandLineTestRunner.h"
 #include "CppUTest/TestRegistry.h"
 #include "CppUTestExt/MockSupportPlugin.h"
