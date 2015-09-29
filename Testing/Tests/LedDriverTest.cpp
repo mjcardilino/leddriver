@@ -14,7 +14,7 @@ extern "C"
 #include "CppUTestExt/MockSupport.h"
 #include "uassert_test.h"
 
-TEST_GROUP(LinkedList)
+TEST_GROUP(LedDriver)
 {
    void setup()
    {
@@ -25,7 +25,7 @@ TEST_GROUP(LinkedList)
    }
 };
 
-TEST(LinkedList, MyFirstTest)
+TEST(LedDriver, MyFirstTest)
 {
    FAIL("My first test is running!");
 }
