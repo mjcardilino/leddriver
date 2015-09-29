@@ -1,6 +1,6 @@
 /*!
  * @file
- * @brief Tests for Linked List module.
+ * @brief Tests for LedDriver module.
  *
  * Copyright (c) 2014 - General Electric - All rights reserved.
  */
@@ -16,6 +16,8 @@ extern "C"
 
 TEST_GROUP(LedDriver)
 {
+   uint16_t virtualLeds;
+   
    void setup()
    {
    }
@@ -25,12 +27,18 @@ TEST_GROUP(LedDriver)
    }
 };
 
+#if 0
+// My first test
 TEST(LedDriver, MyFirstTest)
 {
    FAIL("My first test is running!");
 }
-
-#if(0)
-
-
 #endif
+
+// Test that LEDs are initialized correctly
+TEST(LedDriver, LedsOffAfterCreate) 
+{
+   virtualLeds = 0xffff;
+   LedDriver_Create(&virtualLeds);
+   LONGS_EQUAL(0, virtualLeds);
+}
