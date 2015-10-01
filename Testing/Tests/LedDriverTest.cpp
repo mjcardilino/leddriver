@@ -46,6 +46,8 @@ TEST(LedDriver, LedsOffAfterCreate)
 // Test that LED 01 is turned on
 TEST(LedDriver, TurnOnLedOne)
 {
+   virtualLeds = 0xffff;
+   LedDriver_Create(&virtualLeds);
    LedDriver_TurnOn(1);
    LONGS_EQUAL(1, virtualLeds);
 }
