@@ -20,6 +20,7 @@ TEST_GROUP(LedDriver)
    
    void setup()
    {
+      LedDriver_Create(&virtualLeds);
    }
 
    void teardown()
@@ -46,8 +47,16 @@ TEST(LedDriver, LedsOffAfterCreate)
 // Test that LED 01 is turned on
 TEST(LedDriver, TurnOnLedOne)
 {
-   virtualLeds = 0xffff;
    LedDriver_Create(&virtualLeds);
    LedDriver_TurnOn(1);
    LONGS_EQUAL(1, virtualLeds);
+}
+
+// Test that LED 01 is turned off
+TEST(LedDriver, TurnOffLedOne)
+{
+   LedDriver_Create(&virtualLeds);
+   LedDriver_TurnOn(1);
+   LedDriver_TurnOff(1);
+   LONGS_EQUAL(0, virtualLeds);
 }
