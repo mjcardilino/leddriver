@@ -99,12 +99,22 @@ TEST(LedDriver, UpperAndLowerBounds)
    LONGS_EQUAL(0x8001, virtualLeds);
 }
 
-// Test out-of-bounds
-TEST(LedDriver, OutOfBoundsChangesNothing) 
+// Test out-of-bounds (for TurnOn situation)
+TEST(LedDriver, OutOfBoundsTurnOnDoesNoHarm) 
 {
    LedDriver_TurnOn(-1);
    LedDriver_TurnOn(0);
    LedDriver_TurnOn(17);
    LedDriver_TurnOn(3141);
+   LONGS_EQUAL(0, virtualLeds);
+}
+
+// Test out-of-bounds (for TurnOff situation)
+TEST(LedDriver, OutOfBoundsTurnOffDoesNoHarm) 
+{
+   LedDriver_TurnOff(-1);
+   LedDriver_TurnOff(0);
+   LedDriver_TurnOff(17);
+   LedDriver_TurnOff(3141);
    LONGS_EQUAL(0, virtualLeds);
 }
