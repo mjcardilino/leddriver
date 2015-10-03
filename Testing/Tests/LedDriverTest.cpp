@@ -98,3 +98,13 @@ TEST(LedDriver, UpperAndLowerBounds)
    LedDriver_TurnOn(16);
    LONGS_EQUAL(0x8001, virtualLeds);
 }
+
+// Test out-of-bounds
+TEST(LedDriver, OutOfBoundsChangesNothing) 
+{
+   LedDriver_TurnOn(-1);
+   LedDriver_TurnOn(0);
+   LedDriver_TurnOn(17);
+   LedDriver_TurnOn(3141);
+   LONGS_EQUAL(0, virtualLeds);
+}
