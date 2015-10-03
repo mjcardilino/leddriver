@@ -112,9 +112,10 @@ TEST(LedDriver, OutOfBoundsTurnOnDoesNoHarm)
 // Test out-of-bounds (for TurnOff situation)
 TEST(LedDriver, OutOfBoundsTurnOffDoesNoHarm) 
 {
+   LedDriver_TurnAllOn();
    LedDriver_TurnOff(-1);
    LedDriver_TurnOff(0);
    LedDriver_TurnOff(17);
    LedDriver_TurnOff(3141);
-   LONGS_EQUAL(0, virtualLeds);
+   LONGS_EQUAL(0xffff, virtualLeds);
 }
