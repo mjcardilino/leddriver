@@ -90,3 +90,11 @@ TEST(LedDriver, LedMemoryIsNotReadable)
    LedDriver_TurnOn(8);
    LONGS_EQUAL(0x80, virtualLeds);
 }
+
+// Test boundary conditions
+TEST(LedDriver, UpperAndLowerBounds) 
+{
+   LedDriver_TurnOn(1);
+   LedDriver_TurnOn(16);
+   LONGS_EQUAL(0x8001, virtualLeds);
+}
