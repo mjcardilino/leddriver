@@ -81,3 +81,12 @@ TEST(LedDriver, TurnOffAnyLed)
    LedDriver_TurnOff(8);
    LONGS_EQUAL(0xff7f, virtualLeds);
 }
+
+// Test that shows that the driver is not getting
+// the current LED state from the hardware
+TEST(LedDriver, LedMemoryIsNotReadable) 
+{
+   virtualLeds = 0xffff;
+   LedDriver_TurnOn(8);
+   LONGS_EQUAL(0x80, virtualLeds);
+}
