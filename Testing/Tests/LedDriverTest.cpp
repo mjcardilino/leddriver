@@ -47,7 +47,6 @@ TEST(LedDriver, LedsOffAfterCreate)
 // Test that LED 01 is turned on
 TEST(LedDriver, TurnOnLedOne)
 {
-   LedDriver_Create(&virtualLeds);
    LedDriver_TurnOn(1);
    LONGS_EQUAL(1, virtualLeds);
 }
@@ -55,8 +54,15 @@ TEST(LedDriver, TurnOnLedOne)
 // Test that LED 01 is turned off
 TEST(LedDriver, TurnOffLedOne)
 {
-   LedDriver_Create(&virtualLeds);
    LedDriver_TurnOn(1);
    LedDriver_TurnOff(1);
    LONGS_EQUAL(0, virtualLeds);
+}
+
+// Test to turn on multiple LEDS
+TEST(LedDriver, TurnOnMultLeds) 
+{
+   LedDriver_TurnOn(9);
+   LedDriver_TurnOn(8);
+   LONGS_EQUAL(0x180, virtualLeds);
 }
