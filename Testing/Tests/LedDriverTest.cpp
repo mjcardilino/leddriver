@@ -125,3 +125,11 @@ IGNORE_TEST(LedDriver, OutOfBoundsToDo)
 {
    /* TODO: what should we do during runtime? */
 }
+
+// Test to check if LED is on
+TEST(LedDriver, IsOn)
+{
+   CHECK_EQUAL(FALSE, LedDriver_IsOn(11));
+   LedDriver_TurnOn(11);
+   CHECK_EQUAL(TRUE, LedDriver_IsOn(11));
+}
