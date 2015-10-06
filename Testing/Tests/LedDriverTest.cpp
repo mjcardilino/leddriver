@@ -133,3 +133,10 @@ TEST(LedDriver, IsOn)
    LedDriver_TurnOn(11);
    CHECK_EQUAL(TRUE, LedDriver_IsOn(11));
 }
+
+// Test that out-of-bounds LEDs should always be off
+TEST(LedDriver, OutOfBoundsLedsAreAlwaysOff)
+{
+   CHECK_EQUAL(FALSE, LedDriver_IsOn(0));
+   CHECK_EQUAL(FALSE, LedDriver_IsOn(17));
+}
