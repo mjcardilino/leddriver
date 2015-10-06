@@ -159,3 +159,11 @@ TEST(LedDriver, TurnOffMultipleLeds)
    LedDriver_TurnOff(8);
    LONGS_EQUAL((~0x180)&0xffff, virtualLeds);
 }
+
+// Test to turn off all LEDs
+TEST(LedDriver, AllOff)
+{
+   LedDriver_TurnAllOn();
+   LedDriver_TurnAllOff();
+   LONGS_EQUAL(0, virtualLeds);
+}
