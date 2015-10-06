@@ -119,3 +119,9 @@ TEST(LedDriver, OutOfBoundsTurnOffDoesNoHarm)
    LedDriver_TurnOff(3141);
    LONGS_EQUAL(0xffff, virtualLeds);
 }
+
+// Test to handle out-of-bounds situations
+IGNORE_TEST(LedDriver, OutOfBoundsToDo)
+{
+   /* TODO: what should we do during runtime? */
+}
