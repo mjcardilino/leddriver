@@ -1,4 +1,5 @@
 #include "LedDriver.h"
+#include "uassert.h"
 
 static uint16_t * ledAddress;
 static uint16_t ledImage;
@@ -39,7 +40,9 @@ static void setLedImageBit(int ledNumber)
 void LedDriver_TurnOn(int ledNumber)
 {
     if(IsLedOutOfBounds(ledNumber))
+    {
         return;
+    }
     
     setLedImageBit(ledNumber);
     updateHardware();

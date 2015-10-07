@@ -13,6 +13,7 @@ extern "C"
 #include "CppUTest/TestHarness.h"
 #include "CppUTestExt/MockSupport.h"
 #include "uassert_test.h"
+#include "uassert_test.cpp"
 
 TEST_GROUP(LedDriver)
 {
@@ -166,4 +167,10 @@ TEST(LedDriver, AllOff)
    LedDriver_TurnAllOn();
    LedDriver_TurnAllOff();
    LONGS_EQUAL(0, virtualLeds);
+}
+
+// Test for runtime error
+TEST(LedDriver, OutOfBoundsProducesRuntimeError) 
+{
+   CHECK_ASSERTION_FAILED(LedDriver_TurnAllOn());
 }

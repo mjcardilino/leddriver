@@ -22,7 +22,7 @@ Testing/Build/Testing/Tests//LedDriverTest.o: \
  Testing/CppUTest/include/CppUTestExt/MockNamedValue.h \
  Testing/CppUTest/include/CppUTestExt/MockExpectedFunctionCall.h \
  Testing/CppUTest/include/CppUTestExt/MockExpectedFunctionsList.h \
- Testing/Utilities/uassert_test.h
+ Testing/Utilities/uassert_test.h Testing/Utilities/uassert_test.cpp
 
 Testing/CppUTest/include/CppUTest/MemoryLeakDetectorNewMacros.h:
 
@@ -71,3 +71,5 @@ Testing/CppUTest/include/CppUTestExt/MockExpectedFunctionCall.h:
 Testing/CppUTest/include/CppUTestExt/MockExpectedFunctionsList.h:
 
 Testing/Utilities/uassert_test.h:
+
+Testing/Utilities/uassert_test.cpp:
