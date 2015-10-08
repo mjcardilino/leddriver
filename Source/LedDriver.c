@@ -9,7 +9,12 @@ enum {FIRST_LED = 1, LAST_LED = 16 };
 
 static BOOL IsLedOutOfBounds(int ledNumber)
 {
-    return(ledNumber < FIRST_LED) || (ledNumber > LAST_LED);
+    if ((ledNumber < FIRST_LED) || (ledNumber > LAST_LED))
+    {
+        return TRUE;
+    }
+    else
+        return FALSE;
 }
 
 static uint16_t convertLedNumberToBit(int ledNumber)
@@ -84,4 +89,9 @@ void LedDriver_TurnAllOff(void)
 {
     ledImage = ALL_LEDS_OFF;
     updateHardware();
+}
+
+void LedDriver_RuntimeError(int ledNumber) 
+{
+    return uassert(!IsLedOutOfBounds(ledNumber));
 }

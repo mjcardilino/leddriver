@@ -169,8 +169,9 @@ TEST(LedDriver, AllOff)
    LONGS_EQUAL(0, virtualLeds);
 }
 
-// Test for runtime error
-TEST(LedDriver, OutOfBoundsProducesRuntimeError) 
+// Test runtime errors created by out of bounds situations
+TEST(LedDriver, RuntimeErrorCheck) 
 {
-   CHECK_ASSERTION_FAILED(LedDriver_TurnAllOn());
+   CHECK_ASSERTION_FAILED(LedDriver_RuntimeError(-1));
+   CHECK_ASSERTION_FAILED(LedDriver_RuntimeError(300));
 }
