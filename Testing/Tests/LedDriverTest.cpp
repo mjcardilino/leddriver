@@ -13,7 +13,6 @@ extern "C"
 #include "CppUTest/TestHarness.h"
 #include "CppUTestExt/MockSupport.h"
 #include "uassert_test.h"
-#include "uassert_test.cpp"
 
 TEST_GROUP(LedDriver)
 {
