@@ -1,10 +1,11 @@
-Testing/Build/Testing/Tests//LedDriverTest.o: \
- Testing/Tests//LedDriverTest.cpp \
+Testing/Build/Testing/Tests/Doubles/Led_TestDouble_Test.o: \
+ Testing/Tests/Doubles/Led_TestDouble_Test.cpp \
  Testing/CppUTest/include/CppUTest/MemoryLeakDetectorNewMacros.h \
  Testing/CppUTest/include/CppUTest/CppUTestConfig.h \
  Testing/CppUTest/include/CppUTest/StandardCLibrary.h \
  Testing/CppUTest/include/CppUTest/MemoryLeakDetectorMallocMacros.h \
- Source/LedDriver.h Testing/CppUTest/include/CppUTest/TestHarness.h \
+ Testing/Doubles/Led_TestDouble.h Source/I_Led.h \
+ Testing/CppUTest/include/CppUTest/TestHarness.h \
  Testing/CppUTest/include/CppUTest/CppUTestConfig.h \
  Testing/CppUTest/include/CppUTest/Utest.h \
  Testing/CppUTest/include/CppUTest/SimpleString.h \
@@ -32,7 +33,9 @@ Testing/CppUTest/include/CppUTest/StandardCLibrary.h:
 
 Testing/CppUTest/include/CppUTest/MemoryLeakDetectorMallocMacros.h:
 
-Source/LedDriver.h:
+Testing/Doubles/Led_TestDouble.h:
+
+Source/I_Led.h:
 
 Testing/CppUTest/include/CppUTest/TestHarness.h:
 

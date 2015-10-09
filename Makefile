@@ -34,16 +34,19 @@ CPPUTEST_LDFLAGS += -fprofile-arcs
 SRC_FILES += \
 
 SRC_DIRS += \
-	Source/
+	Source/ \
 
 TEST_SRC_DIRS += \
-	Testing/Tests/
+	Testing/Tests/ \
+	Testing/Tests/Doubles \
+	Testing/Doubles \
+	Testing/Utilities
 
 INCLUDE_DIRS += \
 	$(SRC_DIRS) \
 	$(TEST_SRC_DIRS) \
 	$(CPPUTEST_HOME)/include \
-	Testing/Utilities
+	Testing/Utilities \
 
 # Defer to CppUTest's build system to finish build
 include $(CPPUTEST_HOME)/build/MakefileWorker.mk
