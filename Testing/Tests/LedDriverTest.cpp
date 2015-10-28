@@ -26,6 +26,7 @@ TEST_GROUP(LedDriver)
 
    void teardown()
    {
+      LedDriver_Destroy();
    }
 };
 
@@ -100,31 +101,18 @@ TEST(LedDriver, UpperAndLowerBounds)
    LONGS_EQUAL(0x8001, virtualLeds);
 }
 
-// Test out-of-bounds (for TurnOn situation)
-TEST(LedDriver, OutOfBoundsTurnOnDoesNoHarm) 
+// Test to handle out-of-bounds (for TurnOn situation)
+TEST(LedDriver, OutOfBoundsTurnOn)
 {
-   LedDriver_TurnOn(-1);
-   LedDriver_TurnOn(0);
-   LedDriver_TurnOn(17);
-   LedDriver_TurnOn(3141);
-   LONGS_EQUAL(0, virtualLeds);
+   CHECK_ASSERTION_FAILED(LedDriver_TurnOn(-1));
+   CHECK_ASSERTION_FAILED(LedDriver_TurnOn(300));
 }
 
-// Test out-of-bounds (for TurnOff situation)
-TEST(LedDriver, OutOfBoundsTurnOffDoesNoHarm) 
+// Test to handle out-of-bounds (for TurnOff situation)
+TEST(LedDriver, OutOfBoundsTurnOff)
 {
-   LedDriver_TurnAllOn();
-   LedDriver_TurnOff(-1);
-   LedDriver_TurnOff(0);
-   LedDriver_TurnOff(17);
-   LedDriver_TurnOff(3141);
-   LONGS_EQUAL(0xffff, virtualLeds);
-}
-
-// Test to handle out-of-bounds situations
-IGNORE_TEST(LedDriver, OutOfBoundsToDo)
-{
-   /* TODO: what should we do during runtime? */
+   CHECK_ASSERTION_FAILED(LedDriver_TurnOff(-1));
+   CHECK_ASSERTION_FAILED(LedDriver_TurnOff(300));
 }
 
 // Test to check if LED is on
@@ -133,15 +121,6 @@ TEST(LedDriver, IsOn)
    CHECK_EQUAL(FALSE, LedDriver_IsOn(11));
    LedDriver_TurnOn(11);
    CHECK_EQUAL(TRUE, LedDriver_IsOn(11));
-}
-
-// Test that out-of-bounds LEDs should always be off
-TEST(LedDriver, OutOfBoundsLedsAreAlwaysOff)
-{
-   CHECK_EQUAL(FALSE, LedDriver_IsOn(0));
-   CHECK_EQUAL(FALSE, LedDriver_IsOn(17));
-   CHECK_EQUAL(TRUE, LedDriver_IsOff(0));
-   CHECK_EQUAL(TRUE, LedDriver_IsOff(17));
 }
 
 // Test to check if LED is off
@@ -167,11 +146,4 @@ TEST(LedDriver, AllOff)
    LedDriver_TurnAllOn();
    LedDriver_TurnAllOff();
    LONGS_EQUAL(0, virtualLeds);
-}
-
-// Test runtime errors created by out of bounds situations
-TEST(LedDriver, RuntimeErrorCheck) 
-{
-   CHECK_ASSERTION_FAILED(LedDriver_RuntimeError(-1));
-   CHECK_ASSERTION_FAILED(LedDriver_RuntimeError(300));
 }

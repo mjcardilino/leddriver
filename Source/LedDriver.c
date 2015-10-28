@@ -4,25 +4,29 @@
 static uint16_t * ledAddress;
 static uint16_t ledImage;
 
-enum {ALL_LEDS_ON = ~0, ALL_LEDS_OFF = ~ALL_LEDS_ON};
-enum {FIRST_LED = 1, LAST_LED = 16 };
-
-static BOOL IsLedOutOfBounds(int ledNumber)
+enum 
 {
-    if ((ledNumber < FIRST_LED) || (ledNumber > LAST_LED))
-    {
-        return TRUE;
-    }
-    else
-        return FALSE;
+    AllLedsOn = ~0, 
+    AllLedsOff = ~AllLedsOn
+};
+
+enum 
+{
+    FIRST_LED = 1, 
+    LAST_LED = 16 
+};
+
+static bool LedIsOutOfBounds(LedNumber_t ledNumber)
+{
+    return ((ledNumber < FIRST_LED) || (ledNumber > LAST_LED));
 }
 
-static uint16_t convertLedNumberToBit(int ledNumber)
+static uint16_t ConvertLedNumberToBit(LedNumber_t ledNumber)
 {
     return 1 << (ledNumber - 1);
 }
 
-static void updateHardware(void) 
+static void UpdateHardware(void) 
 {
     *ledAddress = ledImage;
 }
@@ -30,68 +34,73 @@ static void updateHardware(void)
 void LedDriver_Create(uint16_t * address) 
 {
     ledAddress = address;
-    ledImage = ALL_LEDS_OFF;
-    updateHardware();
+    ledImage = AllLedsOff;
+    UpdateHardware();
 }
 
 void LedDriver_Destroy(void)
 {
+    ledImage = AllLedsOff;
+    UpdateHardware();
 }
 
-static void setLedImageBit(int ledNumber)
+static void SetLedImageBit(LedNumber_t ledNumber)
 {
-    ledImage |= convertLedNumberToBit(ledNumber);
+    ledImage |= ConvertLedNumberToBit(ledNumber);
 }
-void LedDriver_TurnOn(int ledNumber)
+
+void LedDriver_TurnOn(LedNumber_t ledNumber)
 {
-    if(IsLedOutOfBounds(ledNumber))
-    {
-        return;
-    }
+    uassert(!LedIsOutOfBounds(ledNumber));
     
-    setLedImageBit(ledNumber);
-    updateHardware();
+    if(!LedIsOutOfBounds(ledNumber))
+    {
+        SetLedImageBit(ledNumber);
+        UpdateHardware();
+    }
 }
 
-static void clearLedImageBit(int ledNumber)
+static void ClearLedImageBit(LedNumber_t ledNumber)
 {
-    ledImage &= ~convertLedNumberToBit(ledNumber);
+    ledImage &= ~ConvertLedNumberToBit(ledNumber);
 }
-void LedDriver_TurnOff(int ledNumber)
+
+void LedDriver_TurnOff(LedNumber_t ledNumber)
 {
-    if(IsLedOutOfBounds(ledNumber))
-        return;
-        
-    clearLedImageBit(ledNumber);
-    updateHardware();
+    uassert(!LedIsOutOfBounds(ledNumber));
+    
+    if(!LedIsOutOfBounds(ledNumber))
+    {
+        ClearLedImageBit(ledNumber);
+        UpdateHardware();
+    }
 }
 
 void LedDriver_TurnAllOn(void)
 {
-    ledImage = ALL_LEDS_ON;
-    updateHardware();
+    ledImage = AllLedsOn;
+    UpdateHardware();
 }
 
-BOOL LedDriver_IsOn(int ledNumber)
+bool LedDriver_IsOn(LedNumber_t ledNumber)
 {
-    if (IsLedOutOfBounds(ledNumber))
+    if (LedIsOutOfBounds(ledNumber))
+    {
         return FALSE;
-        
-    return ledImage && (convertLedNumberToBit(ledNumber));
+    }
+    else
+    {
+        return ledImage && (ConvertLedNumberToBit(ledNumber));
+    }
 }
 
-BOOL LedDriver_IsOff(int ledNumber)
+bool LedDriver_IsOff(LedNumber_t ledNumber)
 {
     return !LedDriver_IsOn(ledNumber);
 }
 
 void LedDriver_TurnAllOff(void)
 {
-    ledImage = ALL_LEDS_OFF;
-    updateHardware();
-}
-
-void LedDriver_RuntimeError(int ledNumber) 
-{
-    return uassert(!IsLedOutOfBounds(ledNumber));
+    ledImage = AllLedsOff;
+    UpdateHardware();
 }

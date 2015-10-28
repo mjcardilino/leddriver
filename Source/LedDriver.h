@@ -2,18 +2,20 @@
 #define LedDriver_H
 
 #include <stdint.h>
+#include <stdbool.h>
 #define TRUE 1
 #define FALSE 0
-typedef int BOOL;
+
+typedef uint8_t LedNumber_t;
 
 void LedDriver_Create(uint16_t * address);
 void LedDriver_Destroy(void);
-void LedDriver_TurnOn(int ledNumber);
-void LedDriver_TurnOff(int ledNumber);
+void LedDriver_TurnOn(LedNumber_t ledNumber);
+void LedDriver_TurnOff(LedNumber_t ledNumber);
 void LedDriver_TurnAllOn(void);
-BOOL LedDriver_IsOn(int ledNumber);
-BOOL LedDriver_IsOff(int ledNumber);
+bool LedDriver_IsOn(LedNumber_t ledNumber);
+bool LedDriver_IsOff(LedNumber_t ledNumber);
 void LedDriver_TurnAllOff(void);
-void LedDriver_RuntimeError(int ledNumber);
+void LedDriver_RuntimeError(LedNumber_t ledNumber);
 
 #endif
