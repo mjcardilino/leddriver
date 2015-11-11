@@ -12,13 +12,13 @@ enum
 
 enum 
 {
-    FIRST_LED = 1, 
-    LAST_LED = 16 
+    FirstLed = 1, 
+    LastLed = 16 
 };
 
 static bool LedIsOutOfBounds(LedNumber_t ledNumber)
 {
-    return ((ledNumber < FIRST_LED) || (ledNumber > LAST_LED));
+    return ((ledNumber < FirstLed) || (ledNumber > LastLed));
 }
 
 static uint16_t ConvertLedNumberToBit(LedNumber_t ledNumber)
