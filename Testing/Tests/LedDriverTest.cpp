@@ -118,17 +118,17 @@ TEST(LedDriver, OutOfBoundsTurnOff)
 // Test to check if LED is on
 TEST(LedDriver, IsOn)
 {
-   CHECK_EQUAL(FALSE, LedDriver_IsOn(11));
+   CHECK_EQUAL(false, LedDriver_IsOn(11));
    LedDriver_TurnOn(11);
-   CHECK_EQUAL(TRUE, LedDriver_IsOn(11));
+   CHECK_EQUAL(true, LedDriver_IsOn(11));
 }
 
 // Test to check if LED is off
 TEST(LedDriver, IsOff)
 {
-   CHECK_EQUAL(TRUE, LedDriver_IsOff(12));
+   CHECK_EQUAL(true, LedDriver_IsOff(12));
    LedDriver_TurnOn(12);
-   CHECK_EQUAL(FALSE, LedDriver_IsOff(12));
+   CHECK_EQUAL(false, LedDriver_IsOff(12));
 }
 
 // Test to turn off multiple LEDs

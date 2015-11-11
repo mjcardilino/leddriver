@@ -86,7 +86,7 @@ bool LedDriver_IsOn(LedNumber_t ledNumber)
 {
     if (LedIsOutOfBounds(ledNumber))
     {
-        return FALSE;
+        return false;
     }
     else
     {

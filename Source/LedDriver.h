@@ -3,8 +3,6 @@
 
 #include <stdint.h>
 #include <stdbool.h>
-#define TRUE 1
-#define FALSE 0
 
 typedef uint8_t LedNumber_t;
 
