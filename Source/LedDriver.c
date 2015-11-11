@@ -52,12 +52,9 @@ static void SetLedImageBit(LedNumber_t ledNumber)
 void LedDriver_TurnOn(LedNumber_t ledNumber)
 {
     uassert(!LedIsOutOfBounds(ledNumber));
-    
-    if(!LedIsOutOfBounds(ledNumber))
-    {
-        SetLedImageBit(ledNumber);
-        UpdateHardware();
-    }
+
+    SetLedImageBit(ledNumber);
+    UpdateHardware();
 }
 
 static void ClearLedImageBit(LedNumber_t ledNumber)
