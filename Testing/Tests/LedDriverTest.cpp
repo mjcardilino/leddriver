@@ -30,14 +30,6 @@ TEST_GROUP(LedDriver)
    }
 };
 
-#if 0
-// My first test
-TEST(LedDriver, MyFirstTest)
-{
-   FAIL("My first test is running!");
-}
-#endif
-
 // Test that LEDs are initialized correctly
 TEST(LedDriver, LedsOffAfterCreate) 
 {
