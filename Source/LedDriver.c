@@ -84,7 +84,7 @@ bool LedDriver_IsOn(LedNumber_t ledNumber)
     }
     else
     {
-        return ledImage && (ConvertLedNumberToBit(ledNumber));
+        return !!(ledImage & (ConvertLedNumberToBit(ledNumber)));
     }
 }
 

@@ -96,6 +96,12 @@ TEST(LedDriver, TurnOffOutOfBoundsShouldFail)
    CHECK_ASSERTION_FAILED(LedDriver_TurnOff(300));
 }
 
+TEST(LedDriver, ShouldNotReportTheWrongLedIsOn)
+{
+   LedDriver_TurnOn(2);
+   CHECK_EQUAL(false, LedDriver_IsOn(3));
+}
+
 TEST(LedDriver, LedShouldBeOn)
 {
    CHECK_EQUAL(false, LedDriver_IsOn(11));
