@@ -65,12 +65,9 @@ static void ClearLedImageBit(LedNumber_t ledNumber)
 void LedDriver_TurnOff(LedNumber_t ledNumber)
 {
     uassert(!LedIsOutOfBounds(ledNumber));
-    
-    if(!LedIsOutOfBounds(ledNumber))
-    {
-        ClearLedImageBit(ledNumber);
-        UpdateHardware();
-    }
+
+    ClearLedImageBit(ledNumber);
+    UpdateHardware();
 }
 
 void LedDriver_TurnAllOn(void)
