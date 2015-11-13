@@ -28,105 +28,185 @@ TEST_GROUP(LedDriver)
    {
       LedDriver_Destroy();
    }
+   
+   void GivenThatAllLedsAreOn()
+   {
+      virtualLeds = 0xffff;
+   }
+   
+   void WhenLedsAreCreated()
+   {
+      LedDriver_Create(&virtualLeds);
+   }
+   
+   void AllLedsShouldBeOff()
+   {
+      LONGS_EQUAL(0, virtualLeds);
+   }
+   
+   void AllLedsShouldBeOn()
+   {
+      LONGS_EQUAL(0xffff, virtualLeds);
+   }
+   
+   void WhenValidLedIsTurnedOn(int ledNumber)
+   {
+      LedDriver_TurnOn(ledNumber);
+   }
+   
+   void WhenValidLedIsTurnedOff(int ledNumber)
+   {
+      LedDriver_TurnOff(ledNumber);
+   }
+   
+   void WhenInvalidLedIsTurnedOn(int ledNumber)
+   {
+      LedDriver_TurnOn(ledNumber);
+   }
+   
+   void WhenInvalidLedIsTurnedOff(int ledNumber)
+   {
+      LedDriver_TurnOff(ledNumber);
+   }
+   
+   void CorrectLedsShouldBeOn(uint16_t value)
+   {
+      LONGS_EQUAL(value, virtualLeds);
+   }
+   
+   void WhenAllLedsAreTurnedOn() 
+   {
+      LedDriver_TurnAllOn();
+   }
+   
+   void WhenAllLedsAreTurnedOff()
+   {
+      LedDriver_TurnAllOff();
+   }
+   
+   void WrongLedIsNotOn(int ledNumber)
+   {
+      CHECK_EQUAL(false, LedDriver_IsOn(ledNumber));
+   }
+   
+   void GivenLedIsNotOn(int ledNumber)
+   {
+      CHECK_EQUAL(false, LedDriver_IsOn(ledNumber));
+   }
+   
+   void LedIsOn(int ledNumber)
+   {
+      CHECK_EQUAL(true, LedDriver_IsOn(ledNumber));
+   }
+   
+   void GivenLedIsOff(int ledNumber)
+   {
+      CHECK_EQUAL(true, LedDriver_IsOff(ledNumber));
+   }
+   
+   void LedIsNotOff(int ledNumber)
+   {
+      
+   }
 };
 
 TEST(LedDriver, LedsShouldBeOffAfterCreate) 
 {
-   virtualLeds = 0xffff;
-   LedDriver_Create(&virtualLeds);
-   LONGS_EQUAL(0, virtualLeds);
+   GivenThatAllLedsAreOn();
+   WhenLedsAreCreated();
+   AllLedsShouldBeOff();
 }
 
 TEST(LedDriver, Led01ShouldTurnOn)
 {
-   LedDriver_TurnOn(1);
-   LONGS_EQUAL(1, virtualLeds);
+   WhenValidLedIsTurnedOn(1);
+   CorrectLedsShouldBeOn(1);
 }
 
 TEST(LedDriver, Led01ShouldTurnOff)
 {
-   LedDriver_TurnOn(1);
-   LedDriver_TurnOff(1);
-   LONGS_EQUAL(0, virtualLeds);
+   WhenValidLedIsTurnedOn(1);
+   WhenValidLedIsTurnedOff(1);
+   AllLedsShouldBeOff();
 }
 
 TEST(LedDriver, MultLedsShouldTurnOn) 
 {
-   LedDriver_TurnOn(9);
-   LedDriver_TurnOn(8);
-   LONGS_EQUAL(0x180, virtualLeds);
+   WhenValidLedIsTurnedOn(9);
+   WhenValidLedIsTurnedOn(8);
+   CorrectLedsShouldBeOn(0x180);
 }
 
 TEST(LedDriver, AllLedsShouldTurnOn) 
 {
-   LedDriver_TurnAllOn();
-   LONGS_EQUAL(0xffff, virtualLeds);
+   WhenAllLedsAreTurnedOn();
+   AllLedsShouldBeOn();
 }
 
 TEST(LedDriver, ShouldTurnOffAnyLed)
 {
-   LedDriver_TurnAllOn();
-   LedDriver_TurnOff(8);
-   LONGS_EQUAL(0xff7f, virtualLeds);
+   WhenAllLedsAreTurnedOn();
+   WhenValidLedIsTurnedOff(8);
+   CorrectLedsShouldBeOn(0xff7f);
 }
 
 TEST(LedDriver, LedMemoryShoudlNotBeReadable) 
 {
-   virtualLeds = 0xffff;
-   LedDriver_TurnOn(8);
-   LONGS_EQUAL(0x80, virtualLeds);
+   GivenThatAllLedsAreOn();
+   WhenValidLedIsTurnedOn(8);
+   CorrectLedsShouldBeOn(0x80);
 }
 
 TEST(LedDriver, UpperAndLowerBoundsShouldTurnOn) 
 {
-   LedDriver_TurnOn(1);
-   LedDriver_TurnOn(16);
-   LONGS_EQUAL(0x8001, virtualLeds);
+   WhenValidLedIsTurnedOn(1);
+   WhenValidLedIsTurnedOn(16);
+   CorrectLedsShouldBeOn(0x8001);
 }
 
 TEST(LedDriver, TurnOnOutOfBoundsShouldFail)
 {
-   CHECK_ASSERTION_FAILED(LedDriver_TurnOn(-1));
-   CHECK_ASSERTION_FAILED(LedDriver_TurnOn(300));
+   CHECK_ASSERTION_FAILED(WhenInvalidLedIsTurnedOn(-1));
+   CHECK_ASSERTION_FAILED(WhenInvalidLedIsTurnedOn(300));
 }
 
 TEST(LedDriver, TurnOffOutOfBoundsShouldFail)
 {
-   CHECK_ASSERTION_FAILED(LedDriver_TurnOff(-1));
-   CHECK_ASSERTION_FAILED(LedDriver_TurnOff(300));
+   CHECK_ASSERTION_FAILED(WhenInvalidLedIsTurnedOff(-1));
+   CHECK_ASSERTION_FAILED(WhenInvalidLedIsTurnedOff(300));
 }
 
 TEST(LedDriver, ShouldNotReportTheWrongLedIsOn)
 {
-   LedDriver_TurnOn(2);
-   CHECK_EQUAL(false, LedDriver_IsOn(3));
+   WhenValidLedIsTurnedOn(2);
+   WrongLedIsNotOn(3);
 }
 
 TEST(LedDriver, LedShouldBeOn)
 {
-   CHECK_EQUAL(false, LedDriver_IsOn(11));
-   LedDriver_TurnOn(11);
-   CHECK_EQUAL(true, LedDriver_IsOn(11));
+   GivenLedIsNotOn(11);
+   WhenValidLedIsTurnedOn(11);
+   LedIsOn(11);
 }
 
 TEST(LedDriver, LedShouldBeOff)
 {
-   CHECK_EQUAL(true, LedDriver_IsOff(12));
-   LedDriver_TurnOn(12);
-   CHECK_EQUAL(false, LedDriver_IsOff(12));
+   GivenLedIsOff(12);
+   WhenValidLedIsTurnedOn(12);
+   LedIsNotOff(12);
 }
 
 TEST(LedDriver, MultLedsShouldTurnOff)
 {
-   LedDriver_TurnAllOn();
-   LedDriver_TurnOff(9);
-   LedDriver_TurnOff(8);
-   LONGS_EQUAL((~0x180)&0xffff, virtualLeds);
+   WhenAllLedsAreTurnedOn();
+   WhenValidLedIsTurnedOff(9);
+   WhenValidLedIsTurnedOff(8);
+   CorrectLedsShouldBeOn((~0x180)&0xffff);
 }
 
 TEST(LedDriver, AllLedsShouldTurnOff)
 {
-   LedDriver_TurnAllOn();
-   LedDriver_TurnAllOff();
-   LONGS_EQUAL(0, virtualLeds);
+   WhenAllLedsAreTurnedOn();
+   WhenAllLedsAreTurnedOff();
+   AllLedsShouldBeOff();
 }
