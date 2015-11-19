@@ -106,7 +106,7 @@ TEST_GROUP(LedDriver)
    
    void LedIsNotOff(int ledNumber)
    {
-      
+      CHECK_EQUAL(false, LedDriver_IsOff(ledNumber));
    }
 };
 
