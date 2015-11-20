@@ -86,12 +86,7 @@ TEST_GROUP(LedDriver)
    
    void LedIsOff(int ledNumber)
    {
-      CHECK_EQUAL(false, LedDriver_IsOn(ledNumber));
-   }
-   
-   void GivenLedIsNotOn(int ledNumber)
-   {
-      CHECK_EQUAL(false, LedDriver_IsOn(ledNumber));
+      CHECK_EQUAL(true, LedDriver_IsOff(ledNumber));
    }
    
    void LedIsOn(int ledNumber)
@@ -101,13 +96,9 @@ TEST_GROUP(LedDriver)
    
    void GivenLedIsOff(int ledNumber)
    {
-      CHECK_EQUAL(true, LedDriver_IsOff(ledNumber));
+      LedDriver_TurnOff(ledNumber);
    }
-   
-   void LedIsNotOff(int ledNumber)
-   {
-      CHECK_EQUAL(false, LedDriver_IsOff(ledNumber));
-   }
+
 };
 
 TEST(LedDriver, LedsShouldBeOffAfterCreate) 
@@ -130,7 +121,7 @@ TEST(LedDriver, Led01ShouldTurnOff)
    AllLedsShouldBeOff();
 }
 
-TEST(LedDriver, MultLedsShouldTurnOn) 
+TEST(LedDriver, MultipleLedsShouldTurnOn) 
 {
    GivenLedIsOn(9);
    GivenLedIsOn(8);
@@ -150,7 +141,7 @@ TEST(LedDriver, ShouldTurnOffAnyLed)
    CorrectLedsShouldBeOn(0xff7f);
 }
 
-TEST(LedDriver, LedMemoryShoudlNotBeReadable) 
+TEST(LedDriver, LedMemoryShouldNotBeReadable) 
 {
    GivenThatAllLedsAreOn();
    GivenLedIsOn(8);
@@ -184,19 +175,19 @@ TEST(LedDriver, ShouldNotReportTheWrongLedIsOn)
 
 TEST(LedDriver, ShouldBeAbleToCheckIfAnLedIsOn)
 {
-   GivenLedIsNotOn(11);
+   GivenLedIsOff(11);
    GivenLedIsOn(11);
    LedIsOn(11);
 }
 
 TEST(LedDriver, ShouldBeAbleToCheckIfAnLedIsOff)
 {
-   GivenLedIsOff(12);
    GivenLedIsOn(12);
-   LedIsNotOff(12);
+   GivenLedIsOff(12);
+   LedIsOff(12);
 }
 
-TEST(LedDriver, MultLedsShouldTurnOff)
+TEST(LedDriver, MultipleLedsShouldTurnOff)
 {
    WhenAllLedsAreTurnedOn();
    WhenValidLedIsTurnedOff(9);
