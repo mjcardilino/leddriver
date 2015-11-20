@@ -84,7 +84,7 @@ TEST_GROUP(LedDriver)
       LedDriver_TurnAllOff();
    }
    
-   void WrongLedIsNotOn(int ledNumber)
+   void LedIsOff(int ledNumber)
    {
       CHECK_EQUAL(false, LedDriver_IsOn(ledNumber));
    }
@@ -179,7 +179,7 @@ TEST(LedDriver, TurnOffOutOfBoundsShouldFail)
 TEST(LedDriver, ShouldNotReportTheWrongLedIsOn)
 {
    GivenLedIsOn(2);
-   WrongLedIsNotOn(3);
+   LedIsOff(3);
 }
 
 TEST(LedDriver, ShouldBeAbleToCheckIfAnLedIsOn)
