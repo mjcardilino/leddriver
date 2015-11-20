@@ -182,14 +182,14 @@ TEST(LedDriver, ShouldNotReportTheWrongLedIsOn)
    WrongLedIsNotOn(3);
 }
 
-TEST(LedDriver, LedShouldBeOn)
+TEST(LedDriver, ShouldBeAbleToCheckIfAnLedIsOn)
 {
    GivenLedIsNotOn(11);
    WhenValidLedIsTurnedOn(11);
    LedIsOn(11);
 }
 
-TEST(LedDriver, LedShouldBeOff)
+TEST(LedDriver, ShouldBeAbleToCheckIfAnLedIsOff)
 {
    GivenLedIsOff(12);
    WhenValidLedIsTurnedOn(12);
